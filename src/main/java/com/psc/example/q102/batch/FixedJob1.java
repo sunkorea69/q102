@@ -8,37 +8,34 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class FixedJob2 {
+public class FixedJob1 {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final int chunkSize = 5;
 
     @Bean
-    public Job fixedJob2_batchBuild() {
-        return jobBuilderFactory.get("fixedJob2")
-                .start(fixedJob2_batchStep1())
+    public Job fixedJob1_batchBuild() {
+        return jobBuilderFactory.get("fixedJob1")
+                .start(fixedJob1_batchStep1())
                 .build();
     }
 
     @Bean
-    public Step fixedJob2_batchStep1() {
-        return stepBuilderFactory.get("fixedJob2_batchStep1")
+    public Step fixedJob1_batchStep1() {
+        return stepBuilderFactory.get("fixedJob1_batchStep1")
                 .<TwoDto, TwoDto>chunk(chunkSize)
-                .reader(fixedJob2_fileReader())
+                .reader(fixedJob1_fileReader())
 //                .writer(csvJob2_FileWriter(new FileSystemResource("output/csvJob2_input.csv")))
                 .writer(twoDto -> twoDto.stream().forEach(twoDto2 -> {
                     System.out.println(twoDto2.getTwo());
@@ -47,7 +44,7 @@ public class FixedJob2 {
     }
 
     @Bean
-    public FlatFileItemReader<TwoDto> fixedJob2_fileReader() {
+    public FlatFileItemReader<TwoDto> fixedJob1_fileReader() {
         FlatFileItemReader<TwoDto> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setResource(new ClassPathResource("sample/fixedjob1_input.txt"));
         flatFileItemReader.setLinesToSkip(1);
