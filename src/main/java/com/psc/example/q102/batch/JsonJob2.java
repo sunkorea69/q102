@@ -71,7 +71,7 @@ public class JsonJob2 {
     public JsonFileItemWriter<CoinMarket> jsonJob2_jsonWriter() {
         return new JsonFileItemWriterBuilder<CoinMarket>()
                 .jsonObjectMarshaller(new JacksonJsonObjectMarshaller<>())
-                .resource(new FileSystemResource("./output/jsonJob2_output.json"))
+                .resource(new FileSystemResource("output/jsonJob2_output.json"))
                 .name("jsonJob2_jsonWriter")
                 .build();
     }
