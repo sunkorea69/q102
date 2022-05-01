@@ -24,7 +24,7 @@ public class JpaPageJob1 {
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
 
-    private final int chunkSize = 10;
+    private final int chunkSize = 2;
 
     @Bean
     public Job JpaPageJob1_batchBuild() {
@@ -43,12 +43,14 @@ public class JpaPageJob1 {
 
     @Bean
     public JpaPagingItemReader<Dept> jpaPageJob1_dbItemReader() {
-        return new JpaPagingItemReaderBuilder<Dept>().name("jpaPageJob1_dbItemReader").entityManagerFactory(entityManagerFactory).pageSize(chunkSize)
+        return new JpaPagingItemReaderBuilder<Dept>().name("jpaPageJob1_dbItemReader").entityManagerFactory(entityManagerFactory)
+                .pageSize(chunkSize)
                 .queryString("SELECT d FROM Dept d order by dept_no asc")
                 .build();
     }
 
     public ItemWriter<Dept> jpaPageJob1_printItemWriter() {
+        System.out.println("2222222222");
         return list ->  {
             for (Dept dept:list) {
                 System.out.println(dept.toString()); }
