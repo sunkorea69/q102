@@ -9,6 +9,8 @@ public class ThreadEx21 {
         new Thread(r).start();
         new Thread(r).start();
         new Thread(r).start();
+        System.out.println("A");
+
     }
 }
 
